@@ -2,15 +2,18 @@
 
 @section('content')
     <div class="px-3 ">
+        
         @auth
-
             @include('new-post')
-
-
         @endauth
         <form method="post" action="{{ route('stream-search') }}" class="mb-4">
             @csrf
-            <input type="text" value="{{ $search ?? '' }}"name="search" class="form-control bg-light " placeholder=". . .">
+            <div class="input-group mb-3">
+                <input type="text" value="{{ $search ?? '' }}"name="search" class="form-control bg-light " placeholder=". . .">
+                <button type="submit" class="input-group-text" id="basic-addon2"><span class="material-icons">search</span></button>
+              </div>
+              
+            
         </form>
         <div class="">
             @foreach ($stream as $post)
@@ -23,10 +26,8 @@
                     @endauth
                 </div>
             @endforeach
-            <hr>
+          
             {{ $stream->links('paginator') }}
         </div>
-
-
     </div>
 @endsection

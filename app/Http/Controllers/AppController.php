@@ -23,7 +23,7 @@ class AppController extends Controller
             $search = str_replace(" ", "+",  $search);
             return redirect()->route('stream-search-results', $search);
         } else {
-            return redirect()->route('stream');
+            return redirect()->route('home');
         }
     }
     public function stream_search_results($query)
