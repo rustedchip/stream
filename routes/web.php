@@ -2,17 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\PostController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+ 
+Route::get('/', [AppController::class, 'home'])->name('home');
+Route::post('/search', [AppController::class, 'stream_search'])->name('stream-search');
+Route::get('/search/{query}', [AppController::class, 'stream_search_results'])->name('stream-search-results');
+
+Route::post('/admin/post/create', [PostController::class, 'create'])->name('create-post');
+Route::get('/admin/post/manage/{post}', [PostController::class, 'manage'])->name('manage-post');
+Route::put('/admin/post/update/{post}', [PostController::class, 'update'])->name('update-post');
+Route::delete('/admin/post/delete/{post}', [PostController::class, 'delete'])->name('delete-post');
