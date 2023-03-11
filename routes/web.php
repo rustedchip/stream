@@ -13,6 +13,7 @@ Auth::routes([
 ]);
 
 Route::get('/', [AppController::class, 'home'])->name('home');
+Route::get('/about', [AppController::class, 'about'])->name('about');
 Route::post('/search', [AppController::class, 'stream_search'])->name('stream-search');
 Route::get('/search/{query}', [AppController::class, 'stream_search_results'])->name('stream-search-results');
 

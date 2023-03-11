@@ -1,5 +1,9 @@
 @extends('app')
 
+@section('head')
+<title>rustedchip - stream</title>
+@endsection
+
 @section('content')
     <div class="px-3 ">
         

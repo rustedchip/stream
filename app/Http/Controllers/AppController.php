@@ -40,4 +40,11 @@ class AppController extends Controller
         }
         return view('home', compact('stream','search'));
     }
+
+    public function about()
+    {
+        $post = Post::where('id',1)->first();
+        return view('about',compact('post'));
+    }
+
 }
