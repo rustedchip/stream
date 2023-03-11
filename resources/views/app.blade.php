@@ -52,9 +52,11 @@
         <div class="py-4">
             @yield('content')
         </div>
+        
     </div>
 
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    @include('toast')
 </body>
 
 </html>

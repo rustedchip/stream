@@ -20,9 +20,11 @@
                 <div class="row mb-4">
                     <div class="col-md-2 mb-1 text-muted fst-italic small">{{ $post->created_at->format('F j, Y h:m A') }}
                     </div>
-                    <div class="col-md-10">{!! $post->content !!}</div>
+                    <div class="@auth col-md-8 @else col-md-10 @endauth">{!! $post->content !!}</div>
                     @auth
+                    <div class="col-md-2">
                         @include('manage-post-button')
+                    </div>
                     @endauth
                 </div>
             @endforeach
