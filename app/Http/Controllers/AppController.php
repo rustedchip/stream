@@ -43,7 +43,7 @@ class AppController extends Controller
 
     public function about()
     {
-        $post = Post::where('id',1)->first();
+        $post = Post::first();
         return view('about',compact('post'));
     }
 
