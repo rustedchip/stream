@@ -1,0 +1,43 @@
+version: '3'
+services:
+  app:
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: ../
+    volumes:
+      - ../:/var/www/html
+      - ../.env:/var/www/html/.env
+    ports:
+      - "9000:80"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    networks:
+      - stream-app-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+    container_name: stream-app
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    environment:
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: ${DOCKER_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - 3906:3306
+    volumes:
+      - 'stream-app-mysql-data:/var/lib/mysql'
+    networks:
+      - stream-app-network
+    container_name: stream-app-database
+    healthcheck:
+      test: "exit 0"
+networks:
+  stream-app-network:
+    driver: bridge
+volumes:
+  stream-app-mysql-data:
+    driver: local
