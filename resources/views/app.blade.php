@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link fw-bolder text-dark" aria-current="page"
-                            href="{{ route('home') }}">rustedchip</a>
+                            href="{{ route('home') }}">{{ config('app.name', 'rustedchip') }}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -24,7 +24,7 @@
                         <a class="nav-link" href="{{route('about')}}">about</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/rustedchip">github</a>
+                        <a class="nav-link" href="https://github.com/rustedchip/stream" target=”_blank”>github</a>
                     </li>
                     @auth
                         <li class="nav-item dropdown">

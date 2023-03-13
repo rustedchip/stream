@@ -13,6 +13,6 @@
 <script>
     tinymce.init({
         selector: 'textarea#content',
-        plugins: 'code, image, codesample',
+        plugins: 'code, image, codesample,link',
     });
 </script>
