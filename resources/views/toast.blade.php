@@ -19,7 +19,7 @@
 @enderror
 
 @if (Session::has('message'))
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;max-width:100%;">
         <div id="toast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <span class="me-auto material-icons text-dark">mode_comment</span>
