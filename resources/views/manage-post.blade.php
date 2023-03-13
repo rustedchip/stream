@@ -28,7 +28,7 @@
     </form>
     <hr>
 
-    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: 'textarea#content',
