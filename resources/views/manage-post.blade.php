@@ -27,12 +27,5 @@
         </button>
     </form>
     <hr>
-
-    <script src="{{ asset('assets/tinymce/tinymce.min.js') }}"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#content',
-            plugins: 'code, image, codesample, link',
-        });
-    </script>
+    @include('tinymce')
 @endsection
