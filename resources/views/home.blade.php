@@ -21,7 +21,7 @@
         </form>
         <div>
             @foreach ($stream as $post)
-                <div class="row mb-4 overflow-auto">
+                <div class="row mb-4 overflow-x-auto">
                     <div class="col-md-2 mb-1 text-muted fst-italic small">{{ $post->created_at->format('F j, Y h:m A') }}
                     </div>
                     <div class="@auth col-md-8 @else col-md-10 @endauth">{!! $post->content !!}</div>
