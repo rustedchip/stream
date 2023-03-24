@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AppController extends Controller
 {
     public function home()
     {
         $stream = Post::orderBy('created_at', 'desc')->paginate(25);
-        if($stream->isEmpty()){
-            Session::flash('message', 'Nothing to Show.'); 
+        if ($stream->isEmpty()) {
+            Session::flash('message', 'Nothing to Show.');
         }
         return view('home', compact('stream'));
     }
@@ -27,24 +30,55 @@ class AppController extends Controller
             $search = str_replace(" ", "+",  $search);
             return redirect()->route('stream-search-results', $search);
         } else {
-            Session::flash('message', 'Search has no Results.'); 
+            Session::flash('message', 'Search has no Results.');
             return redirect()->route('home');
         }
     }
     public function stream_search_results($query)
     {
         $search = str_replace("+", " ",  $query);
-        $stream = Post::where('content', 'LIKE', '%' . $search. '%')->orderBy('created_at', 'desc')->paginate(25);
-        if($stream->isEmpty()){
-            Session::flash('message', 'Search has no Results.'); 
+        $stream = Post::where('content', 'LIKE', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(25);
+        if ($stream->isEmpty()) {
+            Session::flash('message', 'Search has no Results.');
         }
-        return view('home', compact('stream','search'));
+        return view('home', compact('stream', 'search'));
     }
 
     public function about()
     {
         $post = Post::first();
-        return view('about',compact('post'));
+        return view('about', compact('post'));
     }
+    public function password()
+    {
+        return view('password');
+    }
+    public function password_update(request $request)
+    {
+        $this->validate($request, [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string'
+        ]);
 
+        $auth = Auth::user();
+
+        if (!Hash::check($request->get('current_password'), $auth->password)) {
+            
+            Session::flash('message', 'Current Password is Invalid.');
+            return back();
+        }
+
+        if (strcmp($request->get('current_password'), $request->new_password) == 0) {
+            Session::flash('message', 'New Password cannot be same as your current password.');
+            return redirect()->back();
+        }
+
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+
+        Session::flash('message', 'Password has been Updated.');
+        return back();
+        
+    }
 }

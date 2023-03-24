@@ -22,4 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/post/manage/{post}', [PostController::class, 'manage'])->name('manage-post');
     Route::put('/admin/post/update/{post}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/admin/post/delete/{post}', [PostController::class, 'delete'])->name('delete-post');
+
+    Route::get('/admin/user/password', [AppController::class, 'password'])->name('password');
+    Route::put('/admin/user/password/update', [AppController::class, 'password_update'])->name('password-update');
 });
