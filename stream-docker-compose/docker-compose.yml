@@ -2,8 +2,8 @@ version: '3'
 services:
   app:
     build:
-      dockerfile: ./docker/Dockerfile
       context: ../
+      dockerfile: ./stream-docker-compose/Dockerfile
     volumes:
       - ../:/var/www/html
       - ../.env:/var/www/html/.env
