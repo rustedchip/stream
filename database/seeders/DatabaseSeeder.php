@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => env('STREAM_NAME', 'admin'),
+            'name' => env('STREAM_USERNAME', 'administrator'),
             'email' => env('STREAM_EMAIL', 'admin@admin.com'),
             'password' => Hash::make(env('STREAM_PASSWORD', 'password')),
         ]);
