@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('head')
-<title>rustedchip - stream</title>
+<title>{{ config('app.name', 'stream') }} - stream</title>
 @endsection
 
 @section('content')

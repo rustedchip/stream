@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class AppController extends Controller
 {
@@ -63,7 +64,7 @@ class AppController extends Controller
         $auth = Auth::user();
 
         if (!Hash::check($request->get('current_password'), $auth->password)) {
-            
+
             Session::flash('message', 'Current Password is Invalid.');
             return back();
         }
@@ -79,6 +80,33 @@ class AppController extends Controller
 
         Session::flash('message', 'Password has been Updated.');
         return back();
+    }
+    public function files()
+    {
+        if(!File::isDirectory('files')){
+            File::makeDirectory('files', 0777, true, true);
+        }  
+
+        $path = public_path('files');
+        $files = File::files($path);
+        return view('files', compact('files'));
+    }
+    public function upload_file(request $request)
+    {
+        $request->validate([
+            "file" => ['required', 'file', 'mimes:png,jpg,jpeg,pdf,', 'max:1024']
+        ]);
         
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+        Session::flash('message', 'File has been Uploaded.');
+        return back();
+    }
+    public function delete_file(request $request)
+    {
+        File::delete($request->file);
+        Session::flash('message', 'File has been Deleted.');
+        return back();
     }
 }

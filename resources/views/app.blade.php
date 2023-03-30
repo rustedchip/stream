@@ -16,7 +16,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link fw-bolder text-dark" aria-current="page"
-                            href="{{ route('home') }}">{{ config('app.name', 'rustedchip') }}</a>
+                            href="{{ route('home') }}">{{ config('app.name', 'stream') }}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -39,6 +39,7 @@
                                     {{ __('Logout') }}
                                 </a>
                                 <a class="dropdown-item" href="{{ route('password') }}"> {{ __('Password') }} </a>
+                                <a class="dropdown-item" href="{{ route('files') }}"> {{ __('Files') }} </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
