@@ -99,7 +99,10 @@ class AppController extends Controller
         
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+
+        move_uploaded_file($file, 'files/'.date('d-m-Y-H:i:s') . '.' . $extension);
+
+        #$file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
         Session::flash('message', 'File has been Uploaded.');
         return back();
     }
