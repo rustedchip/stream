@@ -11,9 +11,6 @@ COPY stream-google-run/000-default.conf /etc/apache2/sites-available/000-default
 COPY stream-google-run/ports.conf /etc/apache2/ports.conf
 COPY stream-google-run/.env.google-run /var/www/.env
 
-COPY stream-google-run/gcsfuse_run.sh /usr/local/bin/gcsfuse_run
-RUN chmod +x /usr/local/bin/gcsfuse_run
-
 RUN chmod 777 -R /var/www/storage/ && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
