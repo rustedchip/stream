@@ -3,7 +3,7 @@ set -eo pipefail
 mkdir -p $MNT_DIR
 
 echo "mounting-gcs-fuse"
-gcsfuse -o allow_other --uid 33 --gid 33 --dir-mode 755 --file-mode 755 --debug_gcs --debug_fuse $BUCKET $MNT_DIR 
+gcsfuse -o allow_other --uid 33 --gid 33 --dir-mode 777 --file-mode 777 --debug_gcs --debug_fuse --nocache $BUCKET $MNT_DIR 
 echo "mounting-has-been-completed"
 
 chmod 777 -R $MNT_DIR
