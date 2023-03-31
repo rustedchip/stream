@@ -32,7 +32,7 @@ RUN chmod 777 -R /var/www/storage/ && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
 
-RUN chmod 777 -R $MNT_DIR
+RUN chmod 777 -R /var/www/public/files
 
 ENTRYPOINT [ "gcsfuse_run" ]
 CMD ["apache2-foreground"]
