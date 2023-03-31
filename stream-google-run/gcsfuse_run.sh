@@ -9,13 +9,13 @@ ls -la $MNT_DIR
 echo "mounting-gcs-fuse"
 gcsfuse -o allow-other --uid 33 --gid 33 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
 echo "mounting-has-been-completed"
-echo "im here carnal"
+echo "im here also carnal"
 ls -la /var/www/
 ls -la $MNT_DIR
 
 chmod 777 -R $MNT_DIR
 chown -R www-data:www-data $MNT_DIR
-echo "im here carnal"
+echo "im done with this shit carnal"
 ls -la /var/www/
 ls -la $MNT_DIR
 
