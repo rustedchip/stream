@@ -32,9 +32,6 @@ RUN chmod 777 -R /var/www/storage/ && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
 
-
 ENTRYPOINT [ "gcsfuse_run" ]
-
-RUN chmod 777 -R /var/www/public/files
 CMD ["apache2-foreground"]
 
