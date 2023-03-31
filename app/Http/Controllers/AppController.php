@@ -97,10 +97,20 @@ class AppController extends Controller
         $request->validate([
             "file" => ['required', 'file', 'mimes:png,jpg,jpeg,pdf,', 'max:1024']
         ]);
-        
+
         $file = $request->file('file');
-        $extension = $file->getClientOriginalExtension();
-        $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+
+        $storage = new StorageClient();
+        $bucket = $storage->bucket('rustedchip-stream-bucket');
+        $bucket->upload(
+            fopen($file, 'r')
+        );
+        
+        
+       
+        #$extension = $file->getClientOriginalExtension();
+        #$file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+
         Session::flash('message', 'File has been Uploaded.');
         return back();
     }
