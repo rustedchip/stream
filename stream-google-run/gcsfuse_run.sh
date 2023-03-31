@@ -8,6 +8,8 @@ echo "mounting-gcs-fuse"
 gcsfuse --dir-mode 777 --file-mode 777 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
 echo "mounting-has-been-completed"
 
+echo "check-this-out"
+ls -la  $MNT_DIR
 
 
 # first arg is `-f` or `--some-option`
