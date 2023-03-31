@@ -10,6 +10,7 @@ echo "Mounting completed."
 
 chmod 777 -R $MNT_DIR
 chown -R www-data:www-data $MNT_DIR
+touch $MNT_DIR/myfile.txt
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
