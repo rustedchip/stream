@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
-
-# Create mount directory for service
 mkdir -p $MNT_DIR
 
-echo "Mounting GCS Fuse."
-gcsfuse --debug_gcs --debug_fuse $BUCKET $MNT_DIR
-echo "Mounting completed."
+echo "mounting-gcs-fuse"
+gcsfuse -o allow_other --debug_gcs --debug_fuse $BUCKET $MNT_DIR 
+echo "mounting-has-been-completed"
 
 chmod 777 -R $MNT_DIR
 chown -R www-data:www-data $MNT_DIR
