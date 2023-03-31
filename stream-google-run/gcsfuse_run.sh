@@ -5,7 +5,7 @@ chown -R www-data:www-data $MNT_DIR
 chmod 777 -R $MNT_DIR
 
 echo "mounting-gcs-fuse"
-gcsfuse --implicit-dirs -o allow_other --uid 1000 --gid 50 rw --dir-mode 777 --file-mode 777 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
+gcsfuse -o allow_other rw --implicit-dirs --uid 1000 --gid 50  --dir-mode 777 --file-mode 777 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
 echo "mounting-has-been-completed"
 
 echo "check-this-out"
