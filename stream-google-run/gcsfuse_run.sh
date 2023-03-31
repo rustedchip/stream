@@ -7,7 +7,8 @@ ls -la /var/www/
 ls -la $MNT_DIR
 
 echo "mounting-gcs-fuse"
-gcsfuse -o allow-other --uid 33 --gid 33 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
+gcsfuse -o allow_other --uid 33 --gid 33 --debug_gcs --debug_fuse  $BUCKET $MNT_DIR 
+
 echo "mounting-has-been-completed"
 echo "im here also carnal"
 ls -la /var/www/
