@@ -6,9 +6,6 @@ RUN composer install
 FROM php:8.1-rc-apache-buster
 RUN docker-php-ext-install pdo pdo_mysql
 
-RUN groupmod -g 1055 www-data
-RUN usermod -u 1055 www-data
-
 COPY --from=build /app /var/www/
 COPY stream-google-run/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY stream-google-run/ports.conf /etc/apache2/ports.conf
@@ -17,24 +14,8 @@ COPY stream-google-run/.env.google-run /var/www/.env
 COPY stream-google-run/gcsfuse_run.sh /usr/local/bin/gcsfuse_run
 RUN chmod +x /usr/local/bin/gcsfuse_run
 
-
-RUN set -e; \
-    apt-get update -y && apt-get install -y \
-    gnupg2 \
-    tini \
-    lsb-release; \
-    gcsFuseRepo=gcsfuse-`lsb_release -c -s`; \
-    echo "deb http://packages.cloud.google.com/apt $gcsFuseRepo main" | \
-    tee /etc/apt/sources.list.d/gcsfuse.list; \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
-    apt-key add -; \
-    apt-get update; \
-    apt-get install -y gcsfuse && apt-get clean
-
 RUN chmod 777 -R /var/www/storage/ && \
     chown -R www-data:www-data /var/www/ && \
     a2enmod rewrite
 
-ENTRYPOINT [ "gcsfuse_run" ]
-CMD ["apache2-foreground"]
 

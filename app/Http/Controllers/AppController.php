@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AppController extends Controller
 {
@@ -96,10 +97,12 @@ class AppController extends Controller
         $request->validate([
             "file" => ['required', 'file', 'mimes:png,jpg,jpeg,pdf,', 'max:1024']
         ]);
+
         
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+        Storage::disk('gcs')->put($file);
+        #$file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
         Session::flash('message', 'File has been Uploaded.');
         return back();
     }
