@@ -16,7 +16,7 @@
         <hr>
         @foreach ($files as $file)
 
-        {{print_r($file->name)}}<br><br>
+        {{print_r($file->name())}}<br><br>
 
         @endforeach
     </div>

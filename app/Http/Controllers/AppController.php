@@ -113,7 +113,7 @@ class AppController extends Controller
 
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $filename = date('d-m-Y-H:i:s') . '.' . $extension;
+        $filename = date('d-m-Y_His') . '.' . $extension;
 
         $google_bucket = env('GOOGLE_BUCKET');
 
