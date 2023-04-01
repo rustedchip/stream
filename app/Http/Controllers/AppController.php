@@ -99,6 +99,8 @@ class AppController extends Controller
         ]);
 
         $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $filename = date('d-m-Y-H:i:s') . '.' . $extension;
 
       
         $storage = new StorageClient([
@@ -106,13 +108,15 @@ class AppController extends Controller
         ]);
 
         $bucket = $storage->bucket('rustedchip-stream-bucket');
+
         $bucket->upload(
-            fopen($file, 'r')
+            fopen($file, 'r'),
+            ['name' => $filename]
         );
         
         
        
-        #$extension = $file->getClientOriginalExtension();
+        
         #$file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
 
         Session::flash('message', 'File has been Uploaded.');
