@@ -103,7 +103,7 @@ class AppController extends Controller
             $files = File::files($path);
         }
 
-        return view('files', compact('files','google_bucket'));
+        return view('files', compact('files', 'google_bucket'));
     }
     public function upload_file(request $request)
     {
@@ -137,7 +137,23 @@ class AppController extends Controller
     }
     public function delete_file(request $request)
     {
-        File::delete($request->file);
+        $google_bucket = env('GOOGLE_BUCKET');
+
+        if (isset($google_bucket)) {
+            /* google-bucket-storage */
+            $storage = new StorageClient([
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            ]);
+
+            $storage = new StorageClient();
+            $bucket = $storage->bucket($google_bucket);
+            $object = $bucket->object($request->file);
+            $object->delete();
+        } else {
+            File::delete($request->file);
+        }
+
+
         Session::flash('message', 'File has been Deleted.');
         return back();
     }
