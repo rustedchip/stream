@@ -102,7 +102,7 @@ class AppController extends Controller
 
       
         $storage = new StorageClient([
-            'keyFile' => json_decode("${GOOGLE_APPLICATION_CREDENTIALS}", true)
+            'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
         ]);
 
         $bucket = $storage->bucket('rustedchip-stream-bucket');
