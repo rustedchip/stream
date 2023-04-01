@@ -84,12 +84,25 @@ class AppController extends Controller
     }
     public function files()
     {
-        if(!File::isDirectory('files')){
-            File::makeDirectory('files', 0777, true, true);
-        }  
 
-        $path = public_path('files');
-        $files = File::files($path);
+        $google_bucket = env('GOOGLE_BUCKET');
+
+        if (isset($google_bucket)) {
+            /* google-bucket-storage */
+            $storage = new StorageClient([
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            ]);
+            $bucket = $storage->bucket($google_bucket);
+            $files = $bucket->objects();
+        } else {
+            /* local-storage */
+            if (!File::isDirectory('files')) {
+                File::makeDirectory('files', 0777, true, true);
+            }
+            $path = public_path('files');
+            $files = File::files($path);
+        }
+
         return view('files', compact('files'));
     }
     public function upload_file(request $request)
@@ -102,22 +115,22 @@ class AppController extends Controller
         $extension = $file->getClientOriginalExtension();
         $filename = date('d-m-Y-H:i:s') . '.' . $extension;
 
-      
-        $storage = new StorageClient([
-            'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-        ]);
+        $google_bucket = env('GOOGLE_BUCKET');
 
-        $bucket = $storage->bucket('rustedchip-stream-bucket');
-
-        $bucket->upload(
-            fopen($file, 'r'),
-            ['name' => $filename]
-        );
-        
-        
-       
-        
-        #$file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+        if (isset($google_bucket)) {
+            /* google-bucket-storage */
+            $storage = new StorageClient([
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            ]);
+            $bucket = $storage->bucket($google_bucket);
+            $bucket->upload(
+                fopen($file, 'r'),
+                ['name' => $filename]
+            );
+        } else {
+            /* local-storage */
+            $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+        }
 
         Session::flash('message', 'File has been Uploaded.');
         return back();
