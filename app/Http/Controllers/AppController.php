@@ -90,8 +90,7 @@ class AppController extends Controller
         if (isset($google_bucket)) {
             /* google-bucket-storage */
             $storage = new StorageClient([
-                #'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-                'projectId' => 'thinkervolt-cloud'
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
             ]);
             $bucket = $storage->bucket($google_bucket);
             $files = $bucket->objects();
@@ -109,8 +108,8 @@ class AppController extends Controller
     public function upload_file(request $request)
     {
         $request->validate([
-            #"file" => ['required', 'file', 'mimes:png,jpg,jpeg,pdf,', 'max:1024']
-            'projectId' => 'thinkervolt-cloud'
+            "file" => ['required', 'file', 'mimes:png,jpg,jpeg,pdf,', 'max:1024']
+     
         ]);
 
         $file = $request->file('file');
@@ -122,10 +121,8 @@ class AppController extends Controller
         if (isset($google_bucket)) {
             /* google-bucket-storage */
             $storage = new StorageClient([
-                #'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-                'projectId' => 'thinkervolt-cloud'
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
             ]);
-          
             $bucket = $storage->bucket($google_bucket);
             $bucket->upload(
                 fopen($file, 'r'),
@@ -146,10 +143,8 @@ class AppController extends Controller
         if (isset($google_bucket)) {
             /* google-bucket-storage */
             $storage = new StorageClient([
-                #'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-                'projectId' => 'thinkervolt-cloud'
+                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
             ]);
-
             $bucket = $storage->bucket($google_bucket);
             $object = $bucket->object($request->file);
             $object->delete();
