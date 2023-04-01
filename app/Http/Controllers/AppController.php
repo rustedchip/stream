@@ -89,9 +89,10 @@ class AppController extends Controller
 
         if (isset($google_bucket)) {
             /* google-bucket-storage */
-            $storage = new StorageClient([
-                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-            ]);
+            #$storage = new StorageClient([
+            #    'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            #]);
+            $storage = new StorageClient();
             $bucket = $storage->bucket($google_bucket);
             $files = $bucket->objects();
         } else {
@@ -145,15 +146,13 @@ class AppController extends Controller
                 'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
             ]);
 
-            $storage = new StorageClient();
             $bucket = $storage->bucket($google_bucket);
             $object = $bucket->object($request->file);
             $object->delete();
         } else {
             File::delete($request->file);
         }
-
-
+        
         Session::flash('message', 'File has been Deleted.');
         return back();
     }
