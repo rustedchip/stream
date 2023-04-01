@@ -120,9 +120,10 @@ class AppController extends Controller
 
         if (isset($google_bucket)) {
             /* google-bucket-storage */
-            $storage = new StorageClient([
-                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-            ]);
+            #$storage = new StorageClient([
+            #    'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            #]);
+            $storage = new StorageClient();
             $bucket = $storage->bucket($google_bucket);
             $bucket->upload(
                 fopen($file, 'r'),
@@ -142,9 +143,10 @@ class AppController extends Controller
 
         if (isset($google_bucket)) {
             /* google-bucket-storage */
-            $storage = new StorageClient([
-                'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
-            ]);
+            #$storage = new StorageClient([
+            #    'keyFile' => json_decode(env('GOOGLE_APPLICATION_CREDENTIALS'), true)
+            #]);
+            $storage = new StorageClient();
 
             $bucket = $storage->bucket($google_bucket);
             $object = $bucket->object($request->file);
