@@ -100,7 +100,11 @@ class AppController extends Controller
 
         $file = $request->file('file');
 
-        $storage = new StorageClient();
+      
+        $storage = new StorageClient([
+            'keyFile' => json_decode("${GOOGLE_APPLICATION_CREDENTIALS}", true)
+        ]);
+
         $bucket = $storage->bucket('rustedchip-stream-bucket');
         $bucket->upload(
             fopen($file, 'r')
