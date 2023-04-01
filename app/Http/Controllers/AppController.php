@@ -103,7 +103,7 @@ class AppController extends Controller
             $files = File::files($path);
         }
 
-        return view('files', compact('files'));
+        return view('files', compact('files','google_bucket'));
     }
     public function upload_file(request $request)
     {
