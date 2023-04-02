@@ -15,7 +15,7 @@
         </form>
         <hr>
 
-        @if (isset($google_bucket))
+        @if (isset($google_bucket) && !empty($google_bucket))
             @foreach ($files as $file)
                 <div class="mb-1">
                     <a class="d-inline btn btn-secondary px-4"

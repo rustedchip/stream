@@ -7,6 +7,7 @@
     <link href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/material-icons/material-icons.css') }}" rel="stylesheet">
     @yield('head')
+    <link rel="icon" type="image/svg" href="{{ asset('assets/material-icons/book.svg') }}">
 </head>
 
 <body>
