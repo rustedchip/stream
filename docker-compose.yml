@@ -7,7 +7,7 @@ services:
     volumes:
       - ./ :/var/www/html
       - .env:/var/www/html/.env
-      - .stream-docker-compose/volumes/files:/var/www/html/public/files'
+      - .stream-docker-compose/volumes/files:/var/www/html/public/files
     ports:
       - "${DOCKER_WEBSERVER_PORT}:80"
     environment:
@@ -29,7 +29,7 @@ services:
     ports:
       - 3906:3306
     volumes:
-      - .stream-docker-compose/volumes/mysql:/var/lib/mysql'
+      - .stream-docker-compose/volumes/mysql:/var/lib/mysql
     networks:
       - stream-app-network
     container_name: stream-app-database

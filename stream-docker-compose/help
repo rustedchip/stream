@@ -1,0 +1,5 @@
+docker exec stream-app php artisan migrate --seed
+
+docker exec stream-app-database /usr/bin/mysqldump -u root --password=root stream > backup.sql
+
+cat backup.sql | docker exec -i stream-app-database /usr/bin/mysql -u root --password=root stream
