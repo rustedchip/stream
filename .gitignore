@@ -14,5 +14,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-/public/files/*
-!webroot/cache/file-example.jpg
+public/files/*
+!public/files/file-example.jpg
