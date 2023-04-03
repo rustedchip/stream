@@ -130,7 +130,7 @@ class AppController extends Controller
             );
         } else {
             /* local-storage */
-            $file->move('files', date('d-m-Y-H:i:s') . '.' . $extension);
+            $file->move('files', $filename);
         }
 
         Session::flash('message', 'File has been Uploaded.');
