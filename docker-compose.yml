@@ -36,6 +36,4 @@ services:
 networks:
   stream-app-network:
     driver: bridge
-volumes:
-  stream-app-mysql-data:
-    driver: local
+
