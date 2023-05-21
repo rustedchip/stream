@@ -23,10 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/admin/post/update/{post}', [PostController::class, 'update'])->name('update-post');
     Route::delete('/admin/post/delete/{post}', [PostController::class, 'delete'])->name('delete-post');
 
-    Route::get('/admin/files', [AppController::class, 'files'])->name('files');
-    Route::post('/admin/files/upload', [AppController::class, 'upload_file'])->name('upload-file');
-    Route::delete('/admin/files/delete', [AppController::class, 'delete_file'])->name('delete-file');
-
     Route::get('/admin/user/password', [AppController::class, 'password'])->name('password');
     Route::put('/admin/user/password/update', [AppController::class, 'password_update'])->name('password-update');
 });
