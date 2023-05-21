@@ -15,6 +15,7 @@ services:
     networks:
       - stream-app-network
     container_name: stream-app
+    restart: always
       
   mysql:
     image: 'mysql/mysql-server:8.0'
@@ -31,6 +32,7 @@ services:
     networks:
       - stream-app-network
     container_name: stream-app-database
+    restart: always
 networks:
   stream-app-network:
     driver: bridge
