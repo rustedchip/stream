@@ -12,14 +12,13 @@ to set all variables coming from `.env` file, and it also works with Google Clou
 `stream-google-run/.env.google-run` file to set all enviroment variables.
 
 ### *Google Cloud Run*
-App requires to have a mysql instance, essential to set `DB_SOCKET` with `/cloudsql/project:region:instance`, for uploading files it uses <br />
-google bucket that will require bucket name on  `GOOGLE_BUCKET` and json application credentials secret on `GOOGLE_APPLICATION_CREDENTIALS`. <br />
+App requires to have a mysql instance, essential to set `DB_SOCKET` with `/cloudsql/project:region:instance`. <br />
 
 The file `stream-google-run/stream.sql` has the dump that you have to restore in your mysql-instance, upload it first in your private bucket, <br />
 you can set your own user and password, or you can leave as adminisrator and change the defaul password `password` later inside the app.
 
 ### *Things to Know*
-App is simple, two controllers and all controllers, models and views using default laravel structure, app is using simple boostrap 5, google <br />
+App is simple, two controllers only and all controllers, models and views are using default laravel structure, app is using simple boostrap 5, google <br />
 material icons and TinyMCE as post editor, everything by default. <br />
 
 It uses only one user, because it is personal, login page is the default laravel route `login`, it has an unnecessary files page, the purpose is <br />
