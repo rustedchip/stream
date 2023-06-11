@@ -38,11 +38,35 @@ class AppController extends Controller
     }
     public function stream_search_results($query)
     {
-        $search = str_replace("+", " ",  $query);
+        /* $search = str_replace("+", " ",  $query);
         $stream = Post::where('content', 'LIKE', '%' . $search . '%')->orderBy('created_at', 'desc')->paginate(25);
         if ($stream->isEmpty()) {
             Session::flash('message', 'Search has no Results.');
         }
+        return view('home', compact('stream', 'search'));
+
+        */
+
+
+        $search = str_replace("+", " ",  $query);
+
+        $terms = explode("+", $query);
+        $posts = array();
+
+        foreach ($terms as $term) {
+            if ((strlen($term)) > 2) {
+                $post_query = Post::where('content', 'LIKE', '%' . $term . '%')->get();
+                foreach ($post_query as $post) {
+                    array_push($posts, $post->id);
+                }
+            }
+        }
+        $stream = Post::whereIn('id', $posts)->orderBy('created_at', 'desc')->paginate(25);
+
+        if ($stream->isEmpty()) {
+            Session::flash('message', 'Search has no Results.');
+        }
+
         return view('home', compact('stream', 'search'));
     }
 
